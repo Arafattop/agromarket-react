@@ -1,0 +1,294 @@
+/* ===== Переопределяем стартовый шаблон Vite (index.css, App.css) ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: block;            /* убираем flex-центрирование из шаблона */
+  place-items: initial;
+  min-width: 320px;
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: #f5f7f2;
+  color: #1f2a1f;
+}
+
+#root {
+  max-width: none;           /* убираем 1280px и text-align: center из шаблона */
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.error { color: #c62828; }
+.ok { color: #2e7d32; }
+
+/* ===== Шапка (mobile-first: столбик) ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #2e7d32;
+  color: #fff;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.cart {
+  font-weight: 600;
+}
+
+/* ===== Страница: каталог + боковая панель ===== */
+.page {
+  display: grid;
+  grid-template-columns: 1fr;   /* телефон: всё в один столбец */
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.catalog {
+  min-width: 0;
+}
+
+.catalog-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.catalog-toolbar h2 {
+  margin: 0;
+}
+
+.search {
+  min-width: 240px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #b9c4b5;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.sidebar {
+  background: #fff;
+  border: 1px solid #dfe6dc;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+}
+
+.sidebar ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+/* ===== Сетка карточек ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+
+/* ===== Карточка ===== */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #dfe6dc;
+  border-radius: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;                   /* занимает всё место под картинкой */
+}
+
+.card h3,
+.card p {
+  margin: 0;
+}
+
+.card button {
+  margin-top: auto;          /* кнопка уходит вниз, у всех карточек в ряду на одной линии */
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #2e7d32;
+  color: #fff;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #1b5e20;
+}
+
+.card--featured {
+  background: #f1f8e9;
+  border-color: #9ccc65;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #f9a825;
+  color: #1f2a1f;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ===== Форма заявки ===== */
+.contact {
+  grid-column: 1 / -1;       /* на всю ширину страницы */
+  background: #fff;
+  border: 1px solid #dfe6dc;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 8px 12px;
+  border: 1px solid #b9c4b5;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 400;
+}
+
+.contact-form input:user-invalid {
+  border-color: #c62828;
+}
+
+.contact-form button {
+  justify-self: start;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #2e7d32;
+  color: #fff;
+  cursor: pointer;
+}
+
+.contact-form button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ===== Подвал ===== */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px 24px;
+  background: #1f2a1f;
+  color: #e8efe4;
+}
+
+.site-footer address {
+  font-style: normal;
+}
+
+/* ===== Планшет и выше (768px) ===== */
+@media (min-width: 768px) {
+  .site-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+  }
+
+  .nav-links {
+    gap: 24px;
+  }
+
+  .page {
+    padding: 24px;
+  }
+
+  /* «Товар недели» занимает две колонки, только когда колонок больше одной */
+  .card--featured {
+    grid-column: span 2;
+  }
+}
+
+/* ===== Десктоп (1024px): каталог слева, доставка справа ===== */
+@media (min-width: 1024px) {
+  .page {
+    grid-template-columns: 3fr 1fr;
+  }
+
+  .sidebar {
+    align-self: start;
+    position: sticky;
+    top: 96px;               /* ниже липкой шапки */
+  }
+}
