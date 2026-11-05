@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+<<<<<<< HEAD
 
 # Dependencies
 node_modules
@@ -9,6 +10,19 @@ dist
 dist-ssr
 
 # Editor
+=======
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+>>>>>>> 8c55fb904fea2fda3660b1ef9905b8d16c5c18ae
 .vscode/*
 !.vscode/extensions.json
 .idea
