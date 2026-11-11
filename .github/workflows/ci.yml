@@ -16,4 +16,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm test          # компонентные тесты: блокируют merge при падении
       - run: npm run build

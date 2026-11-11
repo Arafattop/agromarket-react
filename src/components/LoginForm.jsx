@@ -32,12 +32,14 @@ export default function LoginForm({ onLogin }) {
     <form className="login-form" onSubmit={handleSubmit}>
       <h3>{isLogin ? 'Вход' : 'Регистрация'}</h3>
 
-      {!isLogin && <input name="name" placeholder="Имя" required />}
-      <input name="email" type="email" placeholder="Email" required />
+      {!isLogin && (
+        <input name="name" placeholder="Имя" aria-label="Имя" required />
+      )}
+      <input name="email" type="email" placeholder="Email" aria-label="Email" required />
       <input name="password" type="password" placeholder="Пароль (от 8 символов)"
-             required minLength={8} />
+             aria-label="Пароль" required minLength={8} />
 
-      {error && <p className="error">{error}</p>}
+      {error && <p className="error" role="alert">{error}</p>}
 
       <button type="submit" disabled={loading}>
         {loading ? 'Подождите…' : isLogin ? 'Войти' : 'Зарегистрироваться'}
