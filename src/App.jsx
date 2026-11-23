@@ -22,28 +22,30 @@ export default function App() {
 
   // Каталог: грузим при старте и при каждом изменении поиска
   useEffect(() => {
-    const controller = new AbortController()
+    // ignore: если поиск сменился, ответ на старый запрос игнорируем (без AbortController)
+    let ignore = false
     setLoading(true)
     setError("")
 
-    fetch(`${API_URL}/products?search=${encodeURIComponent(search)}`, {
-      signal: controller.signal,
-    })
+    fetch(`${API_URL}/products?search=${encodeURIComponent(search)}`)
       .then((res) => {
         if (!res.ok) throw new Error("Ошибка сервера: " + res.status)
         return res.json()
       })
       .then((data) => {
+        if (ignore) return
         setProducts(data)
         setLoading(false)
       })
-      .catch((err) => {
-        if (err.name === "AbortError") return
+      .catch(() => {
+        if (ignore) return
         setError("Не удалось загрузить товары. Запущен ли agromarket-server?")
         setLoading(false)
       })
 
-    return () => controller.abort()
+    return () => {
+      ignore = true
+    }
   }, [search])
 
   // Токен уже сохранён: проверяем на сервере, что он ещё действует
