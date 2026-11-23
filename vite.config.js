@@ -7,10 +7,10 @@ export default defineConfig({
     jsx: 'automatic',                       // JSX без import React, как в приложении
   },
   test: {
-    environment: 'jsdom',
+    environment: 'jsdom',                   // браузерное окружение для тестов
     globals: true,
     setupFiles: './src/test/setup.js',
-    include: ['src/**/*.test.{js,jsx}'],
+    include: ['src/**/*.test.{js,jsx}'],    // Playwright-тесты из e2e/ сюда не попадают
     css: false,
   },
 });

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiFetch } from '../api.js';
+import { apiFetch, formatError } from '../api.js';
 
 export default function LoginForm({ onLogin }) {
   const [mode, setMode] = useState('login');      // 'login' или 'register'
@@ -20,7 +20,7 @@ export default function LoginForm({ onLogin }) {
       });
       onLogin(result.user, result.token);
     } catch (err) {
-      setError(err.message);
+      setError(formatError(err));
     } finally {
       setLoading(false);
     }

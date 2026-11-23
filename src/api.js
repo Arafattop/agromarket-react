@@ -1,5 +1,3 @@
-// Адрес API — из переменной окружения Vite.
-// Локально берётся из .env.development, на хостинге (ЛР9) — из настроек сборки.
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 // Обёртка над fetch: добавляет токен, разбирает JSON, ошибки API превращает в исключения
@@ -21,7 +19,17 @@ export async function apiFetch(path, options = {}) {
   }
 
   if (!res.ok) {
-    throw new Error(data?.error || `Ошибка ${res.status}`);
+    const error = new Error(data?.error || `Ошибка ${res.status}`);
+    error.details = data?.details;   // подробности валидации: список полей
+    throw error;
   }
   return data;
+}
+
+// Текст ошибки для показа пользователю: если есть подробности — перечисляем их
+export function formatError(err) {
+  if (Array.isArray(err.details) && err.details.length > 0) {
+    return err.details.map((d) => d.message).join('; ');
+  }
+  return err.message;
 }
