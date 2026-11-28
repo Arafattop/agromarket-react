@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiFetch } from '../api.js';
+import { apiFetch, formatError } from '../api.js';
 
 export default function AddProductForm({ onAdded }) {
   const [error, setError] = useState('');
@@ -19,7 +19,7 @@ export default function AddProductForm({ onAdded }) {
       onAdded(product);
       form.reset();
     } catch (err) {
-      setError(err.message);
+      setError(formatError(err));
     }
   }
 

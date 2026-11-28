@@ -22,7 +22,7 @@ export default function ContactForm() {
       const result = await res.json()
 
       if (!res.ok) {
-        setStatus({ type: "error", text: result.error })
+        setStatus({ type: "error", text: result.details ? result.details.map((d) => d.message).join("; ") : result.error })
         return
       }
       setStatus({ type: "ok", text: `Заявка №${result.id} принята!` })
