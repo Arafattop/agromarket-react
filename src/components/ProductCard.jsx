@@ -6,7 +6,9 @@ export default function ProductCard({ product, onAdd, featured = false }) {
       <div className="card-body">
         <h3>{product.name}</h3>
         <p>{product.price} ₸</p>
-        <button onClick={() => onAdd(product)}>В корзину</button>
+        <button onClick={() => onAdd(product)} disabled={product.stock === 0}>
+          {product.stock === 0 ? "Нет в наличии" : "В корзину"}
+        </button>
       </div>
     </article>
   )

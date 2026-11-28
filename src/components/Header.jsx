@@ -1,4 +1,4 @@
-export default function Header({ cartCount = 0 }) {
+export default function Header({ cartCount = 0, onOpenCart }) {
   return (
     <header className="site-header">
       <a href="#" className="logo">🌾 АгроМаркет</a>
@@ -11,7 +11,7 @@ export default function Header({ cartCount = 0 }) {
         </ul>
       </nav>
 
-      <div className="cart">🛒 Корзина: {cartCount}</div>
+      <button type="button" className="cart" onClick={onOpenCart}>🛒 Корзина: {cartCount}</button>
     </header>
   )
 }

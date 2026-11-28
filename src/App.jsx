@@ -6,15 +6,18 @@ import Footer from "./components/Footer.jsx"
 import LoginForm from "./components/LoginForm.jsx"
 import AddProductForm from "./components/AddProductForm.jsx"
 import { API_URL, apiFetch } from "./api.js"
+import { CartProvider, useCart } from "./context/CartContext.jsx"
+import CartPage from "./components/CartPage.jsx"
 
 const FEATURED_ID = 1 // «Товар недели» — id из базы
 
-export default function App() {
+function AppContent() {
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
-  const [cart, setCart] = useState([])
+  const { add, count } = useCart()
+  const [page, setPage] = useState("catalog")
   // Пользователь из localStorage: вход переживает перезагрузку страницы
   const [user, setUser] = useState(
     () => JSON.parse(localStorage.getItem("user") || "null")
@@ -71,11 +74,11 @@ export default function App() {
     setUser(null)
   }
 
-  const addToCart = (product) => setCart((prev) => [...prev, product])
+  const addToCart = (product) => add(product)
 
   return (
     <>
-      <Header cartCount={cart.length} />
+      <Header cartCount={count} onOpenCart={() => setPage("cart")} />
 
       <div className="auth-bar">
         {user ? (
@@ -89,6 +92,8 @@ export default function App() {
       </div>
 
       <main className="page">
+        {page === "cart" && <CartPage onBack={() => setPage("catalog")} />}
+        {page === "catalog" && (<>
         {user?.role === "admin" && (
           <AddProductForm onAdded={(p) => setProducts((prev) => [...prev, p])} />
         )}
@@ -113,9 +118,19 @@ export default function App() {
         </aside>
 
         <ContactForm />
+        </>)}
       </main>
 
       <Footer />
     </>
+  )
+}
+
+// Провайдер корзины живёт внутри App, чтобы App работал без внешней обёртки
+export default function App() {
+  return (
+    <CartProvider>
+      <AppContent />
+    </CartProvider>
   )
 }
